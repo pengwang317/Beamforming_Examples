@@ -31,7 +31,7 @@ for k=1:10   %use fisrt 10 segments to  estimate noise spectrum
     noise_spec = fft(win2D .* x(:, j:j+len-1), nFFT, 2);
     noise_mean = noise_mean + noise_spec;
     for freqidx = 1:nFFT   
-        noiseConv(:,:,freqidx) = noiseConv(:,:,freqidx) + (noise_spec(:, freqidx)' * noise_spec(:, freqidx));
+        noiseConv(:,:,freqidx) = noiseConv(:,:,freqidx) + (noise_spec(:, freqidx)' * noise_spec(:, freqidx))+ eye(nChannels); % 加对角矩阵
     end
     j = j + len2;
 end

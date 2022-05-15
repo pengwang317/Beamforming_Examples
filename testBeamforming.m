@@ -6,12 +6,13 @@ load('Computed_RIRs.mat');
 nChannels = size(m_pos,1);
 dMic = m_pos(2, 2) - m_pos(1, 2);
 c = 340;
-delta = pdist2(s_pos(1,:), m_pos(2,:)) - pdist2(s_pos(1,:), m_pos(1,:));
+% delta = pdist2(s_pos(1,:), m_pos(2,:)) - pdist2(s_pos(1,:), m_pos(1,:));
+delta = sqrt(4+1.98*1.98)-sqrt(4+1.96*1.96);% distance diff between path1 and path2
 DOA_est = acosd(delta/dMic);
 
 %==================Generate array signals==================================%
-speechfilename = {'6319-275224-0008.flac', '6319-275224-0011.flac'};
-noisefilename = {'noise1.wav', 'noise2.wav'};
+speechfilename = {'wav/6319-275224-0008.flac', 'wav/6319-275224-0011.flac'};
+noisefilename = {'wav/noise1.wav', 'wav/noise2.wav'};
 
 [source1, fs] = audioread(speechfilename{1});
 [source2, ~] = audioread(noisefilename{1});
@@ -30,6 +31,7 @@ rir = RIR_sources(:,:,2);
 speech2 = fftfilt(rir,source2).*30;
 
 arraySignal = speech1 + repmat(noise, 1, 5);
+audiowrite('output/x_arraySignal.wav', arraySignal, fs);
 %==========================================================================%
 
 %=============================plot Beamformer==============================%

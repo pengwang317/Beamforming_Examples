@@ -4,8 +4,8 @@ close all;
 load('Computed_RIRs.mat');
 
 %==================Generate array signals==================================%
-speechfilename = {'6319-275224-0008.flac', '6319-275224-0011.flac'};
-noisefilename = {'noise1.wav', 'noise2.wav'};
+speechfilename = {'wav/6319-275224-0008.flac', 'wav/6319-275224-0011.flac'};
+noisefilename = {'wav/noise1.wav', 'wav/noise2.wav'};
 
 [source1, fs] = audioread(speechfilename{1});
 [source2, ~] = audioread(noisefilename{1});
